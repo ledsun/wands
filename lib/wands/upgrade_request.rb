@@ -28,6 +28,8 @@ module Wands
     end
 
     def verify(response)
+      raise "Invalid status" unless response.header[SEC_WEBSOCKET_ACCEPT]
+
       accept_digest = response.header[SEC_WEBSOCKET_ACCEPT].first
       accept_digest == Nounce.accept_digest(@key) || raise("Invalid accept digest")
     end
