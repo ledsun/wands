@@ -56,7 +56,7 @@ module Wands
       # The first line is the status line.
       # We don't need it, so we remove it from the headers.
       status_line = headers_lines.shift
-      status_code = status_line.split(" ")[1]
+      status_code = status_line.split[1]
 
       # Parse the headers into a hash.
       headers = headers_lines.to_h do |line|

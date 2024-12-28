@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Wands
+  # This exception is raised when the response from the server is not as expected.
   class ResponseException < StandardError
     attr_reader :response
 
