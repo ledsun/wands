@@ -28,10 +28,19 @@ module Wands
     end
 
     def verify(response)
-      raise "Invalid status" unless response.header[SEC_WEBSOCKET_ACCEPT]
+      raise UpgradeRequestException.new(response) unless response.header[SEC_WEBSOCKET_ACCEPT]
 
       accept_digest = response.header[SEC_WEBSOCKET_ACCEPT].first
-      accept_digest == Nounce.accept_digest(@key) || raise("Invalid accept digest")
+      accept_digest == Nounce.accept_digest(@key) || raise(UpgradeRequestException.new(response))
+    end
+  end
+
+  class UpgradeRequestException < StandardError
+    attr_reader :response
+
+    def initialize(response)
+      @response
+      super("Invalid accept digest")
     end
   end
 end
