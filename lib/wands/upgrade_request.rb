@@ -28,7 +28,7 @@ module Wands
     end
 
     def verify(response)
-      raise UpgradeRequestException.new(response) unless response.header[SEC_WEBSOCKET_ACCEPT]
+      raise UpgradeRequestException.new(response)
 
       accept_digest = response.header[SEC_WEBSOCKET_ACCEPT].first
       accept_digest == Nounce.accept_digest(@key) || raise(UpgradeRequestException.new(response))
@@ -39,8 +39,12 @@ module Wands
     attr_reader :response
 
     def initialize(response)
-      @response
+      @response = response
       super("Invalid accept digest")
+    end
+
+    def to_s
+      "#{super} from '#{response}'"
     end
   end
 end
