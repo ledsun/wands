@@ -8,10 +8,10 @@ class TestWands < Minitest::Test
   end
 
   def test_open_connection
-    server = Wands::WebSocketServer.open("localhost", 8080)
+    server = Wands::WebSocketServer.open("localhost", 23456)
     t = Thread.start { server.accept }
 
-    socket = Wands::WebSocket.open("localhost", 8080)
+    socket = Wands::WebSocket.open("localhost", 23456)
 
     assert_instance_of Wands::WebSocket, socket
 
