@@ -23,11 +23,11 @@ module Wands
   # response.header["sec-websocket-accept"] # => ["s3pPLMBiTxaQ9kYGzzhZRbK+xOo="]
   #
   class HTTPResponse
-    attr_reader :header
+    attr_reader :status, :header
 
     def parse(stream)
       @response = read_from stream
-      @header = headers_of @response
+      @status, @header = headers_of @response
     end
 
     def to_s
@@ -55,14 +55,17 @@ module Wands
 
       # The first line is the status line.
       # We don't need it, so we remove it from the headers.
-      _status_line = headers_lines.shift
+      status_line = headers_lines.shift
+      status_code = status_line.split(" ")[1]
 
       # Parse the headers into a hash.
-      headers_lines.to_h do |line|
+      headers = headers_lines.to_h do |line|
         # Split the line into header name and value.
         header_name, value = line.split(": ", 2)
         [header_name.downcase, [value.strip]]
       end
+
+      [status_code, headers]
     end
   end
 end

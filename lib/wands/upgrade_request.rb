@@ -2,6 +2,7 @@
 
 require "erb"
 require "protocol/websocket/headers"
+require_relative "response_exception"
 
 module Wands
   # The request is used to upgrade the HTTP connection to a WebSocket connection.
@@ -28,23 +29,8 @@ module Wands
     end
 
     def verify(response)
-      raise UpgradeRequestException.new(response)
-
       accept_digest = response.header[SEC_WEBSOCKET_ACCEPT].first
-      accept_digest == Nounce.accept_digest(@key) || raise(UpgradeRequestException.new(response))
-    end
-  end
-
-  class UpgradeRequestException < StandardError
-    attr_reader :response
-
-    def initialize(response)
-      @response = response
-      super("Invalid accept digest")
-    end
-
-    def to_s
-      "#{super} from '#{response}'"
+      accept_digest == Nounce.accept_digest(@key) || raise(ResponseException.new("Invalid accept digest", response))
     end
   end
 end

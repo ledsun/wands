@@ -7,6 +7,7 @@ require "protocol/websocket/framer"
 require "protocol/websocket/text_frame"
 require_relative "upgrade_request"
 require_relative "http_response"
+require_relative "response_exception"
 
 module Wands
   # This is a class that represents WebSocket, which has the same interface as TCPSocket.
@@ -38,6 +39,7 @@ module Wands
 
       response = HTTPResponse.new
       response.parse(socket)
+      raise ResponseException.new("Bad Status", response) unless response.status == "101"
 
       request.verify response
 
