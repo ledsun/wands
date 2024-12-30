@@ -48,7 +48,8 @@ module Wands
     def accept
       socket = @tcp_server.accept
 
-      headers = read_headers_from socket
+      request = WEBrick::HTTPRequest.new(WEBrick::Config::HTTP)
+      headers = read_headers_from request, socket
       unless headers["upgrade"].include? PROTOCOL
         socket.close
         raise "Not a websocket request"
@@ -59,15 +60,15 @@ module Wands
 
       WebSocket.new socket
     rescue WEBrick::HTTPStatus::BadRequest => e
-      warn e.message
+      warn "WEBRick error message: #{e.message}"
+      warn "HTTP request string: #{request}" if request
       socket.write "HTTP/1.1 400 Bad Request\r\n\r\n"
       socket.close
     end
 
     private
 
-    def read_headers_from(socket)
-      request = WEBrick::HTTPRequest.new(WEBrick::Config::HTTP)
+    def read_headers_from(request, socket)
       request.parse(socket)
       request.header
     end
