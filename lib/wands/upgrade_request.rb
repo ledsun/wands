@@ -11,6 +11,7 @@ module Wands
 
     TEMPLATE = <<~REQUEST
       GET / HTTP/1.1
+      Host: localhost:2345
       Connection: Upgrade
       Upgrade: websocket
       Sec-WebSocket-Version: 13
