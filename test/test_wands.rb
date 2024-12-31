@@ -13,12 +13,14 @@ class TestWands < Minitest::Test
       task.async do
         server = Wands::WebSocketServer.open("localhost", 23_456)
         socket = server.accept
+
         assert_instance_of Wands::WebSocket, socket
         socket.close
       end
 
       task.async do
         socket = Wands::WebSocket.open("localhost", 23_456)
+
         assert_instance_of Wands::WebSocket, socket
         socket.close
       end
