@@ -11,7 +11,7 @@ module Wands
 
     TEMPLATE = <<~REQUEST
       GET / HTTP/1.1
-      Host: localhost:2345
+      Host: <%= @host %>:<%= @port %>
       Connection: Upgrade
       Upgrade: websocket
       Sec-WebSocket-Version: 13
@@ -21,7 +21,9 @@ module Wands
 
     ERB = ERB.new(TEMPLATE).freeze
 
-    def initialize
+    def initialize(host, port)
+      @host = host
+      @port = port
       @key = Nounce.generate_key
     end
 

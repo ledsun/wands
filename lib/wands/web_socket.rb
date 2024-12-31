@@ -31,9 +31,9 @@ module Wands
 
     def_delegators :@socket, :addr, :close, :to_io
 
-    def self.open(_host, port)
-      socket = TCPSocket.new("localhost", port)
-      request = UpgradeRequest.new
+    def self.open(host, port)
+      socket = TCPSocket.new(host, port)
+      request = UpgradeRequest.new(host, port)
       socket.write(request.to_s)
       socket.flush
 
