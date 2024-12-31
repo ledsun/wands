@@ -1,4 +1,13 @@
 module Wands
   VERSION: String
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  class WebSocket
+    def initialize: (TCPSocket) -> void
+    def gets: () -> String
+    def write: (String) -> void
+    def self.open: (String, Integer) -> Wands::WebSocket
+    def close: () -> void
+    def addr: () -> Addrinfo
+    def remote_address: () -> Addrinfo
+  end
 end

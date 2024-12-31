@@ -27,9 +27,7 @@ module Wands
     include Protocol::WebSocket::Headers
     extend Forwardable
 
-    attr_reader :remote_address
-
-    def_delegators :@socket, :addr, :close, :to_io
+    def_delegators :@socket, :addr, :remote_address, :close, :to_io
 
     def self.open(host, port)
       socket = TCPSocket.new(host, port)
@@ -48,7 +46,6 @@ module Wands
 
     def initialize(socket)
       @socket = socket
-      @remote_address = socket.remote_address
     end
 
     # @return [String]
