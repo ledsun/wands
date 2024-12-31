@@ -9,6 +9,7 @@ module Wands
   class UpgradeRequest
     include ::Protocol::WebSocket::Headers
 
+    # The Host header is required in HTTP 1.1.
     TEMPLATE = <<~REQUEST
       GET / HTTP/1.1
       Host: <%= @host %>:<%= @port %>
