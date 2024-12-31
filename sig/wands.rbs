@@ -1,13 +1,30 @@
 module Wands
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
   class WebSocket
+    @socket: TCPSocket
+
     def initialize: (TCPSocket) -> void
     def gets: () -> String
     def write: (String) -> void
-    def self.open: (String, Integer) -> Wands::WebSocket
+    def self.open: (String, Integer) -> WebSocket
     def close: () -> void
     def addr: () -> Addrinfo
     def remote_address: () -> Addrinfo
+  end
+
+  class WebSocketServer
+    @tcp_server: TCPServer
+
+    def initialize: (String, Integer) -> void
+    def self.open: (String, Integer) -> WebSocketServer
+    def accept: () -> WebSocket
+    def close: () -> void
+
+    private
+
+    def calculate_accept_nonce_from: (Hash[String, Array[String]]?) -> String
+    def read_headers_from: (WEBrick::HTTPRequest, TCPSocket) -> Hash[String, Array[String]]?
+    def response_to: (Hash[String, Array[String]]?) -> WEBrick::HTTPResponse
   end
 end

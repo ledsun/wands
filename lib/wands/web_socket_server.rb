@@ -62,8 +62,10 @@ module Wands
     rescue WEBrick::HTTPStatus::BadRequest => e
       warn "WEBRick error message: #{e.full_message}"
       warn "HTTP request string: #{request}" if request
-      socket.write "HTTP/1.1 400 Bad Request\r\n\r\n"
-      socket.close
+      if socket
+        socket.write "HTTP/1.1 400 Bad Request\r\n\r\n"
+        socket.close
+      end
     end
 
     private
