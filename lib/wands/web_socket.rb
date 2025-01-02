@@ -27,7 +27,7 @@ module Wands
     include Protocol::WebSocket::Headers
     extend Forwardable
 
-    def_delegators :@socket, :addr, :remote_address, :close, :to_io
+    def_delegators :@socket, :addr, :remote_address, :close, :to_io, :eof?
 
     def self.open(host, port)
       socket = TCPSocket.new(host, port)
@@ -48,13 +48,18 @@ module Wands
       @socket = socket
     end
 
-    # @return [String]
     def gets
       framer = Protocol::WebSocket::Framer.new(@socket)
       frame = framer.read_frame
-      raise "frame is not a text" unless frame.is_a? Protocol::WebSocket::TextFrame
 
-      frame.unpack
+      case frame
+      when Protocol::WebSocket::TextFrame
+        frame.unpack
+      when Protocol::WebSocket::CloseFrame
+        nil
+      else
+        raise "frame is not a text"
+      end
     end
 
     def write(message)

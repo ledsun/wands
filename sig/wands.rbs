@@ -5,7 +5,7 @@ module Wands
     @socket: TCPSocket
 
     def initialize: (TCPSocket) -> void
-    def gets: () -> String
+    def gets: () -> String?
     def write: (String) -> void
     def self.open: (String, Integer) -> WebSocket
     def close: () -> void
