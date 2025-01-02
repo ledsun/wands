@@ -15,26 +15,23 @@ loop do
       client = server.accept
       sockets << client
       puts "Accepted connection from #{client.remote_address.ip_address} #{client.remote_address.ip_port}"
+    elsif socket.eof?
+      puts "Closing connection from #{socket.remote_address.ip_address} #{socket.remote_address.ip_port}"
+      socket.close
+      sockets.delete(socket)
+      next
     else
-      if socket.eof?
+      message = socket.gets
+      if message
+        puts "Received: #{message}"
+        socket.write(message)
+      else
         puts "Closing connection from #{socket.remote_address.ip_address} #{socket.remote_address.ip_port}"
         socket.close
         sockets.delete(socket)
-        next
-      else
-        message = socket.gets
-        if message
-          puts "Received: #{message}"
-          socket.write(message)
-        else
-          puts "Closing connection from #{socket.remote_address.ip_address} #{socket.remote_address.ip_port}"
-          socket.close
-          sockets.delete(socket)
-        end
       end
     end
   end
-
 rescue Interrupt
   puts "\nShutting down..."
   break
