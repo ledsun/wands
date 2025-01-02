@@ -2,8 +2,16 @@ AllCops:
   TargetRubyVersion: 3.1
   NewCops: enable
 
+Bundler/GemFilename:
+  Exclude:
+    - examples/**/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - examples/**/*.rb
+
 Metrics/MethodLength:
-  Max: 15
+  Max: 17
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
