@@ -68,6 +68,8 @@ module Wands
       end
     end
 
+    def to_io = @tcp_server.to_io
+
     private
 
     def read_headers_from(request, socket)
