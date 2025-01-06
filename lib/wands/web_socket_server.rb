@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "socket"
+require "forwardable"
 require "protocol/websocket/headers"
 require "webrick/httprequest"
 require "webrick/httpresponse"
@@ -36,6 +37,9 @@ module Wands
   #
   class WebSocketServer
     include Protocol::WebSocket::Headers
+    extend Forwardable
+
+    def_delegators :@tcp_server, :addr, :to_io
 
     def self.open(hostname, port)
       new(hostname, port)
@@ -67,8 +71,6 @@ module Wands
         socket.close
       end
     end
-
-    def to_io = @tcp_server.to_io
 
     private
 
