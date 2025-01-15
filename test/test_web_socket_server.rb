@@ -9,5 +9,14 @@ class TestWebSocketServer < Minitest::Test
     port = addr[1]
 
     refute_equal 0, port
+  ensure
+    server&.close
+  end
+
+  def test_close
+    server = Wands::WebSocketServer.open("localhost", 23_456)
+    server.close
+
+    assert_nil server.instance_variable_get(:@socket)
   end
 end

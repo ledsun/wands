@@ -72,6 +72,11 @@ module Wands
       end
     end
 
+    def close
+      @tcp_server.close
+      @tcp_server = nil
+    end
+
     private
 
     def read_headers_from(request, socket)

@@ -19,6 +19,7 @@ class TestWands < Minitest::Test
 
         socket.write("Goodbye, World!")
         socket.close
+        server.close
       end
 
       task.async do
