@@ -46,6 +46,7 @@ module Wands
 
     def initialize(socket)
       @socket = socket
+      @buffer = ""
     end
 
     def gets
@@ -60,6 +61,11 @@ module Wands
       else
         raise "frame is not a text"
       end
+    end
+
+    def read(length)
+      @buffer = gets if @buffer.empty?
+      @buffer.slice!(0, length)
     end
 
     def write(message)
