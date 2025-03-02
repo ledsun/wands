@@ -2,6 +2,7 @@ module Wands
   VERSION: String
 
   class WebSocket
+    @binary_message: String
     @socket: TCPSocket
 
     def initialize: (TCPSocket) -> void

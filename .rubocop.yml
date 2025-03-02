@@ -13,6 +13,10 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 17
 
+Style/ZeroLengthPredicate:
+  Exclude:
+    - lib/wands/web_socket.rb
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

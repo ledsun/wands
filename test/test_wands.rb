@@ -17,7 +17,7 @@ class TestWands < Minitest::Test
         assert_instance_of Wands::WebSocket, socket
         assert_equal "Hello, World!", socket.gets
 
-        socket.write("Goodbye, World!")
+        socket.puts("Goodbye, World!")
         socket.close
         server.close
       end
@@ -26,7 +26,7 @@ class TestWands < Minitest::Test
         socket = Wands::WebSocket.open("localhost", 23_456)
 
         assert_instance_of Wands::WebSocket, socket
-        socket.write("Hello, World!")
+        socket.puts("Hello, World!")
 
         assert_equal "Goodbye, World!", socket.gets
         socket.close

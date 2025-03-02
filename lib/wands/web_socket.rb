@@ -46,7 +46,7 @@ module Wands
 
     def initialize(socket)
       @socket = socket
-      @buffer = ""
+      @binary_message = "".b
     end
 
     def gets
@@ -63,14 +63,40 @@ module Wands
       end
     end
 
+    def puts(message)
+      frame = Protocol::WebSocket::TextFrame.new(true, message)
+      frame.write(@socket)
+    end
+
     def read(length)
-      @buffer = gets if @buffer.empty?
-      @buffer.slice!(0, length)
+      @binary_message = read_next_binary_frame if @binary_message.size.zero?
+
+      raise "not enough data." if @binary_message.size < length
+
+      data = @binary_message.byteslice(0, length)
+      @binary_message = @binary_message.byteslice(length, @binary_message.size - length)
+      data
     end
 
     def write(message)
-      frame = Protocol::WebSocket::TextFrame.new(true, message)
+      frame = Protocol::WebSocket::BinaryFrame.new(true, message)
       frame.write(@socket)
+    end
+
+    private
+
+    def read_next_binary_frame
+      framer = Protocol::WebSocket::Framer.new(@socket)
+      frame = framer.read_frame
+
+      case frame
+      when Protocol::WebSocket::BinaryFrame
+        frame.unpack
+      when Protocol::WebSocket::CloseFrame
+        Protocol::WebSocket::Message.new
+      else
+        raise "frame is not a binary"
+      end
     end
   end
 end
