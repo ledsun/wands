@@ -9,9 +9,11 @@ class TestWands < Minitest::Test
   end
 
   def test_send_and_receive_message
+    port = 23_456
+
     Async do |task|
       task.async do
-        server = Wands::WebSocketServer.open("localhost", 23_456)
+        server = Wands::WebSocketServer.open("localhost", port)
         socket = server.accept
 
         assert_instance_of Wands::WebSocket, socket
@@ -23,7 +25,7 @@ class TestWands < Minitest::Test
       end
 
       task.async do
-        socket = Wands::WebSocket.open("localhost", 23_456)
+        socket = Wands::WebSocket.open("localhost", port)
 
         assert_instance_of Wands::WebSocket, socket
         socket.puts("Hello, World!")

@@ -14,9 +14,11 @@ class TestWands < Minitest::Test
   end
 
   def test_length_prefixed_protocol
+    server = Wands::WebSocketServer.open("localhost", 0)
+    port = server.addr[1]
+
     Async do |task|
       task.async do
-        server = Wands::WebSocketServer.open("localhost", 23_457)
         socket = server.accept
 
         assert_instance_of Wands::WebSocket, socket
@@ -28,7 +30,7 @@ class TestWands < Minitest::Test
       end
 
       task.async do
-        socket = Wands::WebSocket.open("localhost", 23_457)
+        socket = Wands::WebSocket.open("localhost", port)
 
         assert_instance_of Wands::WebSocket, socket
         socket.write(dump("Hello, World!") + dump("Goodbye, World!"))
