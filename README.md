@@ -24,19 +24,19 @@ gem install wands
 server = Wands::WebSocketServer.open('localhost', 2345)
 
 loop do
-  client = server.accept
-  client.write("Hello World!")
-  client.close
+  socket = server.accept
+  socket.puts("Hello World!")
+  socket.close
 end
 ```
 
 ### Client
 
 ```ruby
-web_socket = Wands::WebSocket.open('localhost', 2345)
-web_socket.write("Hello World!")
-puts web_socket.gets
-web_socket.close
+socket = Wands::WebSocket.open('localhost', 2345)
+socket.puts("Hello World!")
+puts socket.gets
+socket.close
 ```
 
 ## Development
