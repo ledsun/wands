@@ -27,6 +27,6 @@ Layout/LineLength:
   Exclude:
     - wands.gemspec
 
-require:
+plugins:
   - rubocop-minitest
   - rubocop-rake
