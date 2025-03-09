@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wands (0.6.0)
+    wands (0.6.1)
       protocol-websocket (~> 0.20)
       webrick (~> 1.9)
 
