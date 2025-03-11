@@ -9,13 +9,13 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    async (2.23.0)
+    async (2.23.1)
       console (~> 1.29)
       fiber-annotation
       io-event (~> 1.9)
       metrics (~> 0.12)
       traces (~> 0.15)
-    console (1.30.0)
+    console (1.30.2)
       fiber-annotation
       fiber-local (~> 1.1)
       json
