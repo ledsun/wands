@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "socket"
+require "socket" unless RUBY_PLATFORM == "wasm32-wasi"
 require "forwardable"
 require "protocol/websocket/headers"
 require "protocol/websocket/framer"
