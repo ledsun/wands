@@ -25,7 +25,7 @@ GEM
       fiber-storage
     fiber-storage (1.0.0)
     io-console (0.8.0)
-    io-event (1.9.0)
+    io-event (1.10.0)
     irb (1.15.1)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
