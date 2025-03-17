@@ -2,7 +2,6 @@
 
 require "socket" unless RUBY_PLATFORM == "wasm32-wasi"
 require "forwardable"
-require "protocol/websocket/headers"
 require "protocol/websocket/framer"
 require "protocol/websocket/text_frame"
 require_relative "upgrade_request"

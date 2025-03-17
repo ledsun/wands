@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "socket"
-require "forwardable"
-require "protocol/websocket/headers"
 require "webrick/httprequest"
 require "webrick/httpresponse"
 require "webrick/config"
