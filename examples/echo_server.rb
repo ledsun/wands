@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "wands"
+require "wands/web_socket_server"
 
 server = Wands::WebSocketServer.open("localhost", 23_456)
 sockets = [server]
@@ -24,7 +24,7 @@ loop do
       message = socket.gets
       if message
         puts "Received: #{message}"
-        socket.write(message)
+        socket.puts(message)
       else
         puts "Closing connection from #{socket.remote_address.ip_address} #{socket.remote_address.ip_port}"
         socket.close
