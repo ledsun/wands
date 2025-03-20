@@ -4,6 +4,7 @@ require "uri"
 
 module Wands
   module JS
+    # WebSocket class for when JavaScript is available in the browser.
     module WebSocket
       def self.prepended(base)
         base.singleton_class.prepend(ClassMethods)
