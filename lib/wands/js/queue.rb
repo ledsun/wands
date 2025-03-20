@@ -24,6 +24,7 @@ module Wands
           @buffer << message
         end
       end
+      alias << push
 
       def pop
         # message is received

@@ -6,10 +6,9 @@ require_relative "queue"
 module Wands
   module JS
     # WebSocket class for when JavaScript is available in the browser.
+    # All methods are synchronous and blocking, compatible with the Socket class.
     module WebSocket
-      def self.prepended(base)
-        base.singleton_class.prepend(ClassMethods)
-      end
+      def self.prepended(base) = base.singleton_class.prepend(ClassMethods)
 
       # The class methods module
       module ClassMethods
@@ -41,15 +40,9 @@ module Wands
         @ws.send(str)
       end
 
-      def gets
-        @queue.pop
-      end
+      def gets = @queue.pop
 
-      def <<(event)
-        message = event[:data].to_s
-
-        @queue.push(message)
-      end
+      def <<(event) = @queue << event[:data]
     end
   end
 end
