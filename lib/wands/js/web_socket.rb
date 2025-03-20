@@ -35,7 +35,6 @@ module Wands
 
       def initialize(ws)
         @ws = ws
-        @is_open = ws[:readyState] == 1
         @received_messages = []
       end
 
