@@ -4,7 +4,7 @@ Prepare a wasm binary that includes the wands gem.
 
 ```
 bundle install
-bundle exec rbwasm build -o dist/ruby+gems.wasm
+bundle exec rbwasm build --ruby-version 3.4 -o dist/ruby+gems.wasm
 ```
 
 Please wait half an hour.
