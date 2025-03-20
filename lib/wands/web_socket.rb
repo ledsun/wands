@@ -7,7 +7,7 @@ require "protocol/websocket/text_frame"
 require_relative "upgrade_request"
 require_relative "http_response"
 require_relative "response_exception"
-require_relative "js/web_socket"
+require_relative "js/web_socket" if defined? JS
 
 module Wands
   # This is a class that represents WebSocket, which has the same interface as TCPSocket.
