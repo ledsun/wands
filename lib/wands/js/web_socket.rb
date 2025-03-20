@@ -58,23 +58,23 @@ module Wands
 
     class Queue
       def initialize
-        @message_waiter = nil
-        @received_messages = []
+        @waiter = nil
+        @buffer = []
       end
 
       def push(message)
-        if @message_waiter
-          @message_waiter.apply message
-          @message_waiter = nil
+        if @waiter
+          @waiter.apply message
+          @waiter = nil
         else
-          @received_messages << message
+          @buffer << message
         end
       end
-      
+
       def pop
         # message is received
         # return message
-        return @received_messages.shift unless @received_messages.empty?
+        return @buffer.shift unless @buffer.empty?
 
         # message is not received
         # set promise and wait
@@ -82,7 +82,7 @@ module Wands
         promise = ::JS.global[:Promise].new do |resolve|
           resolve2 = resolve
         end
-        @message_waiter = resolve2
+        @waiter = resolve2
         promise.await
       end
     end
