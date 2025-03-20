@@ -11,7 +11,7 @@ bundle install
 Start the echo server:
 
 ```shell
-bundle exec ./echo_server.rb
+bundle exec ../echo_server.rb
 ```
 
 Open the index.html file in a browser:
