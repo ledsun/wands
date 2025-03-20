@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "uri"
-require_relative 'queue'
+require_relative "queue"
 
 module Wands
   module JS
