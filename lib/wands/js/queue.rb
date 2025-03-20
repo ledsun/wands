@@ -2,6 +2,7 @@
 
 module Wands
   module JS
+    # A blocking queue that can be used for waiting for asynchronous events.
     class Queue
       def initialize
         @waiter = nil
