@@ -7,6 +7,7 @@ require "protocol/websocket/text_frame"
 require_relative "upgrade_request"
 require_relative "http_response"
 require_relative "response_exception"
+require_relative "js_web_socket"
 
 module Wands
   # This is a class that represents WebSocket, which has the same interface as TCPSocket.
@@ -25,6 +26,7 @@ module Wands
   class WebSocket
     include Protocol::WebSocket::Headers
     extend Forwardable
+    prepend JSWebSocket if defined? JS
 
     def_delegators :@socket, :addr, :remote_address, :close, :to_io, :eof?
 
@@ -80,6 +82,11 @@ module Wands
     def write(message)
       frame = Protocol::WebSocket::BinaryFrame.new(true, message)
       frame.write(@socket)
+    end
+
+    def close
+      @socket.close
+      @socket = nil
     end
 
     private
