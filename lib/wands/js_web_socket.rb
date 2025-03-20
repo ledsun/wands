@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'uri'
+require "uri"
 
 module JSWebSocket
   def self.prepended(base)
@@ -14,12 +14,12 @@ module JSWebSocket
       instance = new(ws)
 
       opening_waiter = JS.global[:Promise].new do |resolve|
-        ws.addEventListener('open') do
-          resolve.apply()
+        ws.addEventListener("open") do
+          resolve.apply
         end
       end
 
-      ws.addEventListener('message') do |event|
+      ws.addEventListener("message") do |event|
         instance << event
       end
 
@@ -38,22 +38,20 @@ module JSWebSocket
   def puts(str)
     case @ws[:readyState]
     when 0
-      @ws.addEventListener('open') do
+      @ws.addEventListener("open") do
         @ws.send(str)
       end
     when 1
       @ws.send(str)
     else
-      puts 'socket is closed'
+      puts "socket is closed"
     end
   end
 
   def gets
     # message is received
     # return message
-    unless @received_messages.empty?
-      return @received_messages.shift
-    end
+    return @received_messages.shift unless @received_messages.empty?
 
     # message is not received
     # set promise and wait
@@ -65,7 +63,7 @@ module JSWebSocket
     promise.await
   end
 
-  def << (event)
+  def <<(event)
     message = event[:data].to_s
 
     if @message_waiter
