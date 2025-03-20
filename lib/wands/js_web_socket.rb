@@ -36,16 +36,9 @@ module JSWebSocket
   end
 
   def puts(str)
-    case @ws[:readyState]
-    when 0
-      @ws.addEventListener("open") do
-        @ws.send(str)
-      end
-    when 1
-      @ws.send(str)
-    else
-      puts "socket is closed"
-    end
+    raise "socket is closed" unless @ws[:readyState] == 1
+
+    @ws.send(str)
   end
 
   def gets
