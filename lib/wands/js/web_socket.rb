@@ -10,6 +10,7 @@ module Wands
         base.singleton_class.prepend(ClassMethods)
       end
 
+      # The class methods module
       module ClassMethods
         def open(host, port)
           uri = URI::HTTP.build(host:, port:)
