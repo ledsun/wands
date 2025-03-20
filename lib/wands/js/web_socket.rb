@@ -36,6 +36,7 @@ module Wands
       def initialize(web_socket)
         @ws = web_socket
         @received_messages = []
+        @queue = Queue.new
       end
 
       def puts(str)
@@ -45,6 +46,32 @@ module Wands
       end
 
       def gets
+        @queue.pop
+      end
+
+      def <<(event)
+        message = event[:data].to_s
+
+        @queue.push(message)
+      end
+    end
+
+    class Queue
+      def initialize
+        @message_waiter = nil
+        @received_messages = []
+      end
+
+      def push(message)
+        if @message_waiter
+          @message_waiter.apply message
+          @message_waiter = nil
+        else
+          @received_messages << message
+        end
+      end
+      
+      def pop
         # message is received
         # return message
         return @received_messages.shift unless @received_messages.empty?
@@ -57,17 +84,6 @@ module Wands
         end
         @message_waiter = resolve2
         promise.await
-      end
-
-      def <<(event)
-        message = event[:data].to_s
-
-        if @message_waiter
-          @message_waiter.apply message
-          @message_waiter = nil
-        else
-          @received_messages << message
-        end
       end
     end
   end
