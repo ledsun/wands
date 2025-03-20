@@ -33,8 +33,8 @@ module Wands
         end
       end
 
-      def initialize(ws)
-        @ws = ws
+      def initialize(web_socket)
+        @ws = web_socket
         @received_messages = []
       end
 
