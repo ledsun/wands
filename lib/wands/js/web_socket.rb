@@ -36,7 +36,6 @@ module Wands
 
       def initialize(web_socket)
         @ws = web_socket
-        @received_messages = []
         @queue = Queue.new
       end
 
