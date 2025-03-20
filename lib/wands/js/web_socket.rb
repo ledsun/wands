@@ -16,19 +16,15 @@ module Wands
         def open(host, port)
           uri = URI::HTTP.build(host:, port:)
           ws = ::JS.global[:WebSocket].new(uri.to_s)
+
           instance = new(ws)
-
-          opening_waiter = ::JS.global[:Promise].new do |resolve|
-            ws.addEventListener("open") do
-              resolve.apply
-            end
-          end
-
           ws.addEventListener("message") do |event|
             instance << event
           end
 
-          opening_waiter.await
+          queue = Queue.new
+          ws.addEventListener("open") { queue.push(nil) }
+          queue.pop
 
           instance
         end
