@@ -78,11 +78,9 @@ module Wands
 
         # message is not received
         # set promise and wait
-        resolve2 = nil
-        promise = ::JS.global[:Promise].new do |resolve|
-          resolve2 = resolve
-        end
-        @waiter = resolve2
+        resolve = nil
+        promise = ::JS.global[:Promise].new { resolve = it }
+        @waiter = resolve
         promise.await
       end
     end
