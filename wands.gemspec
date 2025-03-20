@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary = "A low-level WebSocket library compatible with Ruby's TCPSocket."
   spec.description = "A WebSocket library with the same layer as Ruby's TCPSocket, which does not have the function of an HTTP server, in order to use WebSocket as a new protocol for dRuby."
   spec.homepage = "https://github.com/ledsun/wands"
-  spec.required_ruby_version = ">= 3.1.0"
+  spec.required_ruby_version = ">= 3.4.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
