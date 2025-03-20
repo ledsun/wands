@@ -22,9 +22,9 @@ module Wands
             instance << event
           end
 
-          queue = Queue.new
-          ws.addEventListener("open") { queue.push(nil) }
-          queue.pop
+          Queue.wait_once do |queue|
+            ws.addEventListener("open") { queue.push(nil) }
+          end
 
           instance
         end

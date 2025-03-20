@@ -4,6 +4,13 @@ module Wands
   module JS
     # A blocking queue that can be used for waiting for asynchronous events.
     class Queue
+
+      def self.wait_once
+        queue = new
+        yield queue
+        queue.pop
+      end
+
       def initialize
         @waiter = nil
         @buffer = []
