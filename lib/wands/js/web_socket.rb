@@ -15,7 +15,7 @@ module Wands
           ws = ::JS.global[:WebSocket].new(uri.to_s)
           instance = new(ws)
 
-          opening_waiter = ::JS::global[:Promise].new do |resolve|
+          opening_waiter = ::JS.global[:Promise].new do |resolve|
             ws.addEventListener("open") do
               resolve.apply
             end
