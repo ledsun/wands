@@ -3,7 +3,7 @@
 require "test_helper"
 require "async"
 
-class TestWands < Minitest::Test
+class TestBinaryTransmissionWands < Minitest::Test
   def dump(str)
     [str.size].pack("N") + str
   end
