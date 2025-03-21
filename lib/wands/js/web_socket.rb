@@ -41,7 +41,7 @@ module Wands
 
         @ws.send(str)
       end
-      
+
       # Add an text flame into the buffer
       def <<(event) = @buffer << event[:data]
     end
