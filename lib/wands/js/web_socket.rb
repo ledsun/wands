@@ -34,14 +34,14 @@ module Wands
         @queue = Queue.new
       end
 
+      def gets = @queue.pop
+
       def puts(str)
         raise "socket is closed" unless @ws[:readyState] == 1
 
         @ws.send(str)
       end
-
-      def gets = @queue.pop
-
+      
       def <<(event) = @queue << event[:data]
     end
   end
