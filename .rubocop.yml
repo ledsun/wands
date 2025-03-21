@@ -1,7 +1,8 @@
 AllCops:
   NewCops: enable
   Exclude:
-    - examples/ruby_wasm/**/*
+    - dist/build/**/*
+    - dist/rubies/**/*
 
 Bundler/GemFilename:
   Exclude:
