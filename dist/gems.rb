@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "wands", path: "../../"
+gem "wands", path: "../"
 
 gem "ruby_wasm", "~> 2.7"
 

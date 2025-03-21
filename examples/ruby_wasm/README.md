@@ -1,13 +1,17 @@
 This is a sample of running wands as a socket client using ruby.wasm in the browser.
 
 Prepare a wasm binary that includes the wands gem.
+at project root:
 
 ```
-bundle install
-bundle exec rbwasm build --ruby-version 3.4 -o dist/ruby+gems.wasm
+bundle exec rake wasm:build
 ```
 
 Please wait half an hour.
+
+```
+cp dist/ruby+wands.wasm examples/ruby_wasm/dist
+```
 
 Start the echo server:
 

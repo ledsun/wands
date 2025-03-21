@@ -64,7 +64,7 @@ const loadScriptAsync = async (tag) => {
 };
 
 import { DefaultRubyVM } from "https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/browser/+esm";
-const response = await fetch("/dist/ruby+gems.wasm");
+const response = await fetch("/dist/ruby+wands.wasm");
 const module = await WebAssembly.compileStreaming(response);
 const { vm } = await DefaultRubyVM(module);
 
