@@ -1,6 +1,7 @@
 AllCops:
   NewCops: enable
   Exclude:
+    - vendor/bundle/**/*
     - dist/build/**/*
     - dist/rubies/**/*
 
