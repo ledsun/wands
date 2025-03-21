@@ -9,7 +9,7 @@ class TestWands < Minitest::Test
   end
 
   def test_send_and_receive_message
-    port = 23_456
+    port = 23_457
 
     Async do |task|
       task.async do
