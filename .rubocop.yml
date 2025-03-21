@@ -6,7 +6,8 @@ AllCops:
 
 Bundler/GemFilename:
   Exclude:
-    - examples/**/*.rb
+    - examples/**/gems.rb
+    - dist/**/gems.rb
 
 Metrics/BlockLength:
   Exclude:
