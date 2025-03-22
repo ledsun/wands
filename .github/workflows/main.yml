@@ -27,6 +27,12 @@ jobs:
       - name: Run the default task
         run: bundle exec rake
 
+      - name: Install WASM build dependencies
+        run: |
+          cd dist
+          export BUNDLE_GEMFILE=$(pwd)/gems.rb
+          bundle install
+
       - name: Build wasm
         run: bundle exec rake wasm:build
 
