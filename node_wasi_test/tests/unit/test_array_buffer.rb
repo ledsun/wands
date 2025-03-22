@@ -14,7 +14,7 @@ module Wands
         @buffer.write("\x10\x20\x30".b)
         js_buffer = @buffer.to_js_array_buffer
 
-        assert_true(JS.is_a?(js_buffer, ::JS.global[:ArrayBuffer]))
+        assert_true(::JS.is_a?(js_buffer, ::JS.global[:ArrayBuffer]))
         assert_equal(3, ::JS.global[:Uint8Array].new(js_buffer)[:length])
       end
       # rubocop:enable Naming/MethodName
