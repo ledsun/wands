@@ -3,17 +3,17 @@
 require "js"
 
 module Wands
-  module JS
+  module JavaScript
     # A wrapper around JavaScript ArrayBuffer
     class ArrayBuffer
       def initialize(js_array_buffer = nil)
         @data = "".b
 
         return unless js_array_buffer
-        raise ArgumentError, "Expected a JavaScript ArrayBuffer" unless ::JS.is_a?(js_array_buffer,
-                                                                                   ::JS.global[:ArrayBuffer])
+        raise ArgumentError, "Expected a JavaScript ArrayBuffer" unless JS.is_a?(js_array_buffer,
+                                                                                 JS.global[:ArrayBuffer])
 
-        uint8_array = ::JS.global[:Uint8Array].new(js_array_buffer)
+        uint8_array = JS.global[:Uint8Array].new(js_array_buffer)
 
         (0...js_array_buffer[:byteLength].to_i).each do |index|
           @data << uint8_array[index].to_i.chr
@@ -27,7 +27,7 @@ module Wands
       end
 
       def to_js_array_buffer
-        uint8_array = ::JS.global[:Uint8Array].new(@data.bytesize)
+        uint8_array = JS.global[:Uint8Array].new(@data.bytesize)
 
         @data.bytes.each_with_index do |byte, index|
           uint8_array[index] = byte

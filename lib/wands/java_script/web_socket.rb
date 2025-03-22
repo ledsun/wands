@@ -4,7 +4,7 @@ require "uri"
 require_relative "queue"
 
 module Wands
-  module JS
+  module JavaScript
     # WebSocket class for when JavaScript is available in the browser.
     # All methods are synchronous and blocking, compatible with the Socket class.
     module WebSocket
@@ -14,7 +14,7 @@ module Wands
       module ClassMethods
         def open(host, port)
           uri = URI::HTTP.build(host:, port:)
-          ws = ::JS.global[:WebSocket].new(uri.to_s)
+          ws = JS.global[:WebSocket].new(uri.to_s)
 
           instance = new(ws)
           ws.addEventListener("message") do |event|

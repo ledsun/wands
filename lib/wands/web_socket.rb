@@ -7,7 +7,7 @@ require "protocol/websocket/text_frame"
 require_relative "upgrade_request"
 require_relative "http_response"
 require_relative "response_exception"
-require_relative "js/web_socket" if defined? JS
+require_relative "java_script/web_socket" if defined? JS
 
 module Wands
   # This is a class that represents WebSocket, which has the same interface as TCPSocket.
@@ -26,7 +26,7 @@ module Wands
   class WebSocket
     include Protocol::WebSocket::Headers
     extend Forwardable
-    prepend JS::WebSocket if defined? JS
+    prepend JavaScript::WebSocket if defined? JS
 
     def_delegators :@socket, :addr, :remote_address, :close, :to_io, :eof?
 

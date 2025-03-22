@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Wands
-  module JS
+  module JavaScript
     # A blocking queue that can be used for waiting for asynchronous events.
     class Queue
       def self.wait_once
@@ -33,7 +33,7 @@ module Wands
         # message is not received
         # set promise and wait
         resolve = nil
-        promise = ::JS.global[:Promise].new { resolve = it }
+        promise = JS.global[:Promise].new { resolve = it }
         @waiter = resolve
         promise.await
       end
