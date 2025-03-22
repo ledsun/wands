@@ -42,7 +42,12 @@ jobs:
             ruby-wasm-${{ runner.os }}-
 
       - name: Show cached files
-        run: ls -lh dist/rubies
+        run: |
+          if [ -d dist/rubies ]; then
+            ls -lh dist/rubies
+          else
+            echo "No cached rubies found."
+          fi
 
       - name: Build wasm
         run: |
