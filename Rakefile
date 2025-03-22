@@ -17,15 +17,6 @@ namespace :wasm do
     Dir.chdir("dist") do
       ENV["BUNDLE_GEMFILE"] = File.expand_path("gems.rb")
       sh "bundle install"
-    end
-
-    Rake::Task["wasm:build_only"].invoke
-  end
-
-  desc "Build Ruby WASM"
-  task :build_only do
-    Dir.chdir("dist") do
-      ENV["BUNDLE_GEMFILE"] = File.expand_path("gems.rb")
       sh "bundle exec rbwasm build --ruby-version 3.4 -o ruby+wands.wasm"
     end
   end
