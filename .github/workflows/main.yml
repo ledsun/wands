@@ -34,7 +34,10 @@ jobs:
           bundle install
 
       - name: Build wasm
-        run: bundle exec rake wasm:build_only
+        run: |
+          cd dist
+          export BUNDLE_GEMFILE=$(pwd)/gems.rb
+          bundle exec rbwasm build --ruby-version 3.4 -o ruby+wands.wasm
 
       - name: Use Node.js
         uses: actions/setup-node@v3
