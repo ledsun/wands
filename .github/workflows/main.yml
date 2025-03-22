@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build_ruby:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
@@ -23,5 +23,20 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+
       - name: Run the default task
         run: bundle exec rake
+
+      - name: Build wasm
+        run: bundel exec rake wasm:build
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Test in Node WASI
+        run: npm test
