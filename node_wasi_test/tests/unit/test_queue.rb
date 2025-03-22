@@ -5,6 +5,7 @@ require "js"
 require "wands/js/queue"
 
 module Wands
+  # Test Wands::Queue
   class TestQueue < Test::Unit::TestCase
     def test_push_and_pop
       queue = Wands::JS::Queue.new
