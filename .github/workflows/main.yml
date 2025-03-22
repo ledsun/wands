@@ -45,7 +45,11 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run:  |
+          cd node_wasi_test
+          npm install
 
       - name: Test in Node WASI
-        run: npm test
+        run: |
+          cd node_wasi_test
+          npm test
