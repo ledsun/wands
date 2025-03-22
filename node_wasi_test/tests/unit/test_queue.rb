@@ -16,7 +16,7 @@ module Wands
     def test_wait_once
       start = Time.now
       Wands::JS::Queue.wait_once do |queue|
-        JS.global.setTimeout(-> { queue.push("Hello World!") }, 100)
+        ::JS.global.setTimeout(-> { queue.push("Hello World!") }, 100)
       end
       assert_in_delta 0.1, Time.now - start, 0.05
     end
