@@ -28,7 +28,7 @@ jobs:
         run: bundle exec rake
 
       - name: Build wasm
-        run: bundel exec rake wasm:build
+        run: bundle exec rake wasm:build
 
       - name: Use Node.js
         uses: actions/setup-node@v3
