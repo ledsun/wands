@@ -2,7 +2,9 @@
 
 module Wands
   module JavaScript
-    # A blocking queue that can be used for waiting for asynchronous events.
+    # Asynchronous event queuing mechanism utilizing JavaScript's Promise;
+    # since it uses JavaScript's API, only objects that can be converted to
+    # JavaScript objects can pass through this queue.
     class Queue
       def self.wait_once
         queue = new
@@ -15,16 +17,23 @@ module Wands
         @buffer = []
       end
 
+      # Only objects that can be converted to JavaScript object can be pushed.
       def push(message)
+        js_object = JS.try_convert(message)
+        raise TypeError, "#{message.class} is not a JS::Object like object" unless js_object
+
         if @waiter
           @waiter.apply message
           @waiter = nil
         else
-          @buffer << message
+          @buffer << js_object
         end
       end
       alias << push
 
+      # The popped object is a JavaScript object.
+      # For example, when you push Ruby's false,
+      # the pop method will return JS::True.
       def pop
         # message is received
         # return message
