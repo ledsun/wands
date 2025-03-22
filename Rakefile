@@ -12,11 +12,10 @@ RuboCop::RakeTask.new
 task default: %i[test rubocop]
 
 namespace :wasm do
-  ENV["BUNDLE_GEMFILE"] = File.expand_path("dist/gems.rb")
-
   desc "Build Ruby WASM and install gems"
   task :build do
     Dir.chdir("dist") do
+      ENV["BUNDLE_GEMFILE"] = File.expand_path("gems.rb")
       sh "bundle install"
     end
 
@@ -26,6 +25,7 @@ namespace :wasm do
   desc "Build Ruby WASM"
   task :build_only do
     Dir.chdir("dist") do
+      ENV["BUNDLE_GEMFILE"] = File.expand_path("gems.rb")
       sh "bundle exec rbwasm build --ruby-version 3.4 -o ruby+wands.wasm"
     end
   end
