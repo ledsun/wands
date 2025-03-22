@@ -33,6 +33,17 @@ jobs:
           export BUNDLE_GEMFILE=$(pwd)/gems.rb
           bundle install
 
+      - name: Cache Ruby WASM binary
+        uses: actions/cache@v3
+        with:
+          path: dist/rubies/
+          key: ruby-wasm-${{ runner.os }}-${{ matrix.ruby }}
+          restore-keys: |
+            ruby-wasm-${{ runner.os }}-
+
+      - name: Show cached files
+        run: ls -lh dist/rubies
+
       - name: Build wasm
         run: |
           cd dist
