@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    wands (0.7.2)
+    wands (0.8.0)
       protocol-websocket (~> 0.20)
       webrick (~> 1.9)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    ast (2.4.2)
+    ast (2.4.3)
     async (2.23.1)
       console (~> 1.29)
       fiber-annotation
@@ -36,7 +36,7 @@ GEM
     metrics (0.12.2)
     minitest (5.25.5)
     parallel (1.26.3)
-    parser (3.3.7.1)
+    parser (3.3.7.2)
       ast (~> 2.4.1)
       racc
     pp (0.6.2)
@@ -67,8 +67,8 @@ GEM
       rubocop-ast (>= 1.38.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.39.0)
-      parser (>= 3.3.1.0)
+    rubocop-ast (1.41.0)
+      parser (>= 3.3.7.2)
     rubocop-minitest (0.37.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1, < 2.0)
