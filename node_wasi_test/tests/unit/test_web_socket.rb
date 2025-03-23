@@ -27,5 +27,16 @@ module Wands
 
       web_socket.close
     end
+
+    def test_write_and_read
+      web_socket = WebSocket.open("localhost", 8080)
+      web_socket.write("Hello World!".b)
+
+      received = web_socket.read(12)
+      assert_instance_of(String, received)
+      assert_equal("Hello World!", received)
+
+      web_socket.close
+    end
   end
 end
