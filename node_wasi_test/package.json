@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@ruby/wasm-wasi": "^2.7.1"
+    "@ruby/wasm-wasi": "^2.7.1",
+    "ws": "^8.18.1"
   }
 }

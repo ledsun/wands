@@ -40,19 +40,17 @@ module Wands
       end
 
       def initialize(web_socket)
-        @ws = web_socket
+        @socket = web_socket
         @buffer = Queue.new
       end
 
-      def gets = @buffer.pop
+      def gets = @buffer.pop.to_s
 
       def puts(str)
-        raise "socket is closed" unless @ws[:readyState] == 1
+        raise "socket is closed" unless @socket[:readyState] == 1
 
-        @ws.send(str)
+        @socket.send(str)
       end
-
-      private
 
       # Add an text flame into the buffer
       def <<(event) = @buffer << event[:data]
