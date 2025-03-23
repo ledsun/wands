@@ -7,7 +7,7 @@ module Wands
       attr_reader :stack
 
       def initialize(js_error_event, message = nil)
-        super("#{message}#{dig_js_values(js_error_event,:message)}")
+        super("#{message}#{dig_js_values(js_error_event, :message)}")
         @stack = dig_js_values(js_error_event, :error, :stack)
       end
 
