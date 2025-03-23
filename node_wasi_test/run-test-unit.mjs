@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import * as nodeWasi from "wasi";
 import { RubyVM } from "@ruby/wasm-wasi";
-import startTextEchoServer from "./start-text-echo-server.mjs";
+import startEchoServer from "./start-echo-server.mjs";
 
 async function instantiateNodeWasi() {
   const dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -35,7 +35,7 @@ async function test() {
 }
 
 async function main() {
-  const stopServer = startTextEchoServer(8080);
+  const stopServer = startEchoServer(8080);
 
   try{
     Error.stackTraceLimit = Infinity;

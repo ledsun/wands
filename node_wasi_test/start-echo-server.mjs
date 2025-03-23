@@ -7,11 +7,7 @@ export default function startTextEchoServer(port) {
 
   wss.on('connection', (ws) => {
     ws.on('message', (message, isBinary) => {
-      if (!isBinary) {
-        ws.send(`${message}`);
-      } else {
-        console.warn('ignore binary message');
-      }
+      ws.send(message, { binary: isBinary });
     });
   });
 
