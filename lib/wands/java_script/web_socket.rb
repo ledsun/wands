@@ -2,6 +2,7 @@
 
 require "uri"
 require_relative "queue"
+require_relative "js_error"
 
 module Wands
   module JavaScript
@@ -17,15 +18,24 @@ module Wands
           ws = JS.global[:WebSocket].new(uri.to_s)
 
           instance = new(ws)
-          ws.addEventListener("message") do |event|
-            instance << event
-          end
-
-          Queue.wait_once do |queue|
-            ws.addEventListener("open") { queue.push(nil) }
-          end
-
+          ws.addEventListener("message") { instance << it }
+          wait_until_ready ws
           instance
+        end
+
+        private
+
+        def wait_until_ready(js_ws)
+          return if js_ws[:readyState] == 1
+
+          js_event = Queue.wait_once do |queue|
+            js_ws.addEventListener("open") { queue.push it }
+            js_ws.addEventListener("error") { queue.push it }
+          end
+
+          return unless js_event[:type].to_s == "error"
+
+          raise JSError.new js_event, "WebSocket connection to #{js_ws[:url]} failed: "
         end
       end
 
@@ -41,6 +51,8 @@ module Wands
 
         @ws.send(str)
       end
+
+      private
 
       # Add an text flame into the buffer
       def <<(event) = @buffer << event[:data]
