@@ -30,11 +30,13 @@ module Wands
 
     def test_write_and_read
       web_socket = WebSocket.open("localhost", 8080)
-      web_socket.write("Hello World!".b)
+      binary_data = "\x48\x65\x6C\x6C\x6F\x20\x57\x6F\x72\x6C\x64\x21".b  # "Hello World!" as binary
+      web_socket.write(binary_data)
 
       received = web_socket.read(12)
       assert_instance_of(String, received)
-      assert_equal("Hello World!", received)
+      assert_equal(received.encoding, Encoding::ASCII_8BIT)
+      assert_equal(binary_data, received)
 
       web_socket.close
     end
